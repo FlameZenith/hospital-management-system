@@ -4,24 +4,27 @@
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────┐
-│              Frontend (React 19 + Vite)          │
-│              http://localhost:5173               │
-└──────────────────────┬──────────────────────────┘
-                       │ REST API
-                       ▼
-┌─────────────────────────────────────────────────┐
-│          Backend (Spring Boot 3.2)               │
-│              http://localhost:8080               │
-│                                                  │
-│  ┌─────────────┐ ┌──────────────┐ ┌───────────┐ │
-│  │   Patient    │ │ Appointment  │ │  Billing  │ │
-│  │   Module     │ │   Module     │ │  Module   │ │
-│  └─────────────┘ └──────────────┘ └───────────┘ │
-│                                                  │
-│              H2 In-Memory Database               │
-└─────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    Client["React Frontend :5173"]
+    Backend["Spring Boot Backend :8080"]
+    DB[("H2 In-Memory Database")]
+
+    Client -->|REST API| Backend
+
+    subgraph Backend Modules
+        Patient["Patient Module"]
+        Appointment["Appointment Module"]
+        Billing["Billing Module"]
+    end
+
+    Appointment -->|validates patient| Patient
+    Billing -->|links to| Patient
+    Billing -->|links to| Appointment
+
+    Patient --- DB
+    Appointment --- DB
+    Billing --- DB
 ```
 
 ## Tech Stack
