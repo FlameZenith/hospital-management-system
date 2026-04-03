@@ -1,6 +1,6 @@
 # Hospital Management System
 
-> A full-stack modular monolith application built with Spring Boot and React for managing hospital operations including patient records, appointment scheduling, and billing.
+A full-stack hospital management application built with Spring Boot and React. Handles patient records, appointment scheduling, and billing.
 
 ## Architecture
 
@@ -8,11 +8,11 @@
 graph TD
     Client["React Frontend :5173"]
     Backend["Spring Boot Backend :8080"]
-    DB[("H2 In-Memory Database")]
+    DB[("H2 Database")]
 
     Client -->|REST API| Backend
 
-    subgraph Backend Modules
+    subgraph Modules
         Patient["Patient Module"]
         Appointment["Appointment Module"]
         Billing["Billing Module"]
@@ -29,53 +29,43 @@ graph TD
 
 ## Tech Stack
 
-**Backend:**
-- Java 17, Spring Boot 3.2.4
-- Spring Data JPA with H2 Database
-- Lombok for boilerplate reduction
-- Modular monolith architecture
+**Backend:** Java 17, Spring Boot 3.2.4, Spring Data JPA, H2 Database, Lombok, Maven
 
-**Frontend:**
-- React 19, Vite 8
-- React Router v7 for navigation
-- Axios for HTTP requests
+**Frontend:** React 19, Vite 8, React Router v7, Axios
 
 ## Modules
 
-### Patient Module
-- Patient registration and profile management
-- CRUD operations via `/api/patients`
-
-### Appointment Module
-- Schedule appointments linked to patients
-- Status management: SCHEDULED → COMPLETED / CANCELLED
-- API: `/api/appointments`
-
-### Billing Module
-- Generate invoices linked to patients and appointments
-- Payment tracking: UNPAID → PAID
-- API: `/api/bills`
+| Module | Description | API |
+|--------|-------------|-----|
+| Patient | Patient registration and profile management | `/api/patients` |
+| Appointment | Scheduling linked to patients, status tracking (SCHEDULED / COMPLETED / CANCELLED) | `/api/appointments` |
+| Billing | Invoice generation linked to patients and appointments, payment tracking (UNPAID / PAID) | `/api/bills` |
 
 ## Getting Started
 
 ### Prerequisites
+
 - Java 17+
 - Maven 3.8+
 - Node.js 18+
 
-### Run Backend
+### Backend
+
 ```bash
 cd backend
 mvn spring-boot:run
 ```
+
 Backend starts at http://localhost:8080
 
-### Run Frontend
+### Frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 Frontend starts at http://localhost:5173
 
 ## API Endpoints
